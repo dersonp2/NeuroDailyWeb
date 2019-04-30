@@ -1,0 +1,217 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:util="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/template.xhtml">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form" prependId="false">
+            <util:message/>
+
+            <div class="ui-g-12">
+                <div class="card card-w-title">
+                    <h1><b>Cadastrar de Profissional</b></h1>
+                    <h:panelGroup>
+                        <p:fieldset legend="Dados Pessoais" style="margin-bottom:20px">
+
+                            <p:panelGrid id="pgNomeR" columns="3"
+                                         columnClasses="ui-grid-col-3, ui-grid-col-7, ui-grid-col-2"
+                                         layout="grid" styleClass="ui-panelgrid-blank form-group"
+                                         style="border:0px none; background-color:transparent;">
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:selectOneMenu id="somProfissao"
+                                                     value="#{cadastroProfissionalBean.profissional.profissao}"
+                                                     label="Sexo"
+                                                     style="width:100%"
+                                                     converter="omnifaces.SelectItemsConverter">
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItems value="#{cadastroProfissionalBean.profissoes}" var="profissao"
+                                                       itemValue="#{profissao}" itemLabel="#{profissao.descricao}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Profissão"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputText id="itNomeR"
+                                                 style="width: 100%;"
+                                                 value="#{cadastroProfissionalBean.profissional.pessoa.nome}"/>
+                                    <p:outputLabel for="itNomeR" value="Nome"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:selectOneMenu id="somSexoR"
+                                                     value="#{cadastroProfissionalBean.profissional.pessoa.sexo.id}"
+                                                     style="width:125px" label="Sexo">
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItems value="#{cadastroProfissionalBean.sexos}" var="sexo"
+                                                       itemValue="#{sexo.id}" itemLabel="#{sexo.descricao}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Sexo"/>
+                                </h:panelGroup>
+                            </p:panelGrid>
+
+                            <p:panelGrid layout="grid" columns="4"
+                                         styleClass="ui-panelgrid-blank form-group"
+                                         columnClasses="ui-grid-col-3, ui-grid-col-3, ui-grid-col-3, ui-grid-col-3">
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:calendar value="#{cadastroProfissionalBean.profissional.pessoa.nascimento}"
+                                                id="itNascR"
+                                                requiredMessage="Nascimento obrigatório"
+                                                mask="true" style="width: 100%;" pattern="dd/MM/yyyy"/>
+                                    <p:outputLabel for="itNascR" value="Nascimento"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputMask mask="999.999.999-99" id="itCpfR"
+                                                 style="width: 50%;"
+                                                 value="#{cadastroProfissionalBean.profissional.pessoa.documentoPessoal.cpf}"/>
+                                    <p:outputLabel for="itCpfR" value="CPF"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputMask id="itRGR"
+                                                 mask="99999?99999999"
+                                                 style="width: 100%;"
+                                                 value="#{cadastroProfissionalBean.profissional.pessoa.documentoPessoal.rg}"/>
+                                    <p:outputLabel for="itRGR" value="RG"/>
+                                </h:panelGroup>
+                            </p:panelGrid>
+                        </p:fieldset>
+
+                        <p:fieldset legend="Contato" style="margin-bottom:20px">
+                            <p:panelGrid id="pgContatoR" columns="3"
+                                         columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-4"
+                                         layout="grid" styleClass="ui-panelgrid-blank form-group"
+                                         style="border:0px none; background-color:transparent;">
+
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputMask id="itTelefone"
+                                                 mask="(99) 9999 9999"
+                                                 value="#{cadastroProfissionalBean.profissional.pessoa.telefone}"
+                                                 style="width: 100%;"/>
+                                    <p:outputLabel for="itTelefone" value="Telefone"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputMask id="itCelular"
+                                                 mask="(99) 99999 9999"
+                                                 value="#{cadastroProfissionalBean.profissional.pessoa.celular}"
+                                                 style="width: 100%;"/>
+                                    <p:outputLabel for="itCelular" value="Celular"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputText id="itEmail"
+                                                 value="#{cadastroProfissionalBean.profissional.pessoa.email}"
+                                                 style="width: 100%;"/>
+                                    <p:outputLabel for="itEmail" value="Email"/>
+                                </h:panelGroup>
+                            </p:panelGrid>
+                        </p:fieldset>
+
+                        <p:fieldset legend="Endereco" style="margin-bottom:20px">
+                            <p:panelGrid id="pgEndeco" columns="4"
+                                         columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-4, ui-grid-col-2"
+                                         layout="grid" styleClass="ui-panelgrid-blank form-group"
+                                         style="border:0px none; background-color:transparent;">
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:selectOneMenu id="somCidade"
+                                                     filter="true"
+                                                     filterMatchMode="contains"
+                                                     value="#{cadastroProfissionalBean.profissional.pessoa.endereco.cidade}"
+                                                     style="width:100%"
+                                                     converter="omnifaces.SelectItemsConverter">
+                                        <f:selectItem itemLabel="" itemValue=""/>
+                                        <f:selectItems value="#{cadastroProfissionalBean.cidades}" var="cidade"
+                                                       itemValue="#{cidade}" itemLabel="#{cidade.descricao}"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Cidade"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputText id="itBairro"
+                                                 value="#{cadastroProfissionalBean.profissional.pessoa.endereco.bairro}"
+                                                 style="width: 100%;"/>
+                                    <p:outputLabel for="itBairro" value="Bairro"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputText id="itRua"
+                                                 value="#{cadastroProfissionalBean.profissional.pessoa.endereco.rua}"
+                                                 style="width: 100%;"/>
+                                    <p:outputLabel for="itRua" value="Rua"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputMask id="itCep"
+                                                 mask="99999-999"
+                                                 value="#{cadastroProfissionalBean.profissional.pessoa.endereco.cep}"
+                                                 style="width: 100%;"/>
+                                    <p:outputLabel for="itCep" value="CEP"/>
+                                </h:panelGroup>
+                            </p:panelGrid>
+
+                            <p:panelGrid id="pgComplemento" columns="2" columnClasses="ui-grid-col-10, ui-grid-col-2"
+                                         layout="grid" styleClass="ui-panelgrid-blank form-group"
+                                         style="border:0px none; background-color:transparent;">
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputText id="itComplemento"
+                                                 value="#{cadastroProfissionalBean.profissional.pessoa.endereco.complemento}"
+                                                 style="width: 100%;"/>
+                                    <p:outputLabel for="itComplemento" value="Complemento"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputText id="itNumero"
+                                                 value="#{cadastroProfissionalBean.profissional.pessoa.endereco.numero}"
+                                                 style="width: 30%;"/>
+                                    <p:outputLabel for="itNumero" value="Nº"/>
+                                </h:panelGroup>
+                            </p:panelGrid>
+                        </p:fieldset>
+                    </h:panelGroup>
+                </div>
+
+                <div class="ui-g" style="margin-top: -13px;">
+                    <div class="ui-g-12">
+                        <p:toolbar>
+                            <f:facet name="right">
+                                <span class="ui-separator" style="padding-right: 5px;"/>
+                                <p:commandButton id="btnCadastrar"
+                                                 rendered="#{!cadastroProfissionalBean.edicao}"
+                                                 value="Cadastrar"
+                                                 action="#{cadastroProfissionalBean.save}"
+                                                 icon="ui-icon-plus"
+                                                 styleClass="green-btn"
+                                                 process="@form"
+                                                 update="@form"/>
+                                <p:commandButton id="btnEditar"
+                                                 rendered="#{cadastroProfissionalBean.edicao}"
+                                                 value="Editar"
+                                                 action="#{cadastroProfissionalBean.save}"
+                                                 icon="ui-icon-check"
+                                                 styleClass="green-btn"
+                                                 process="@form"
+                                                 update="@form"/>
+                                <span class="ui-separator" style="padding-right: 5px;"/>
+                                <p:commandButton id="btnLimpar"
+                                                 rendered="#{cadastroProfissionalBean.edicao}"
+                                                 value="Limpar"
+                                                 action="#{cadastroProfissionalBean.renew}"
+                                                 icon="ui-icon-autorenew"
+                                                 styleClass="cyan-btn"
+                                                 process="@this"
+                                                 update="@form"/>
+                            </f:facet>
+                        </p:toolbar>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

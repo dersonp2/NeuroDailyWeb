@@ -1,0 +1,55 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:pu="http://primefaces.org/ultima">
+    <h:form id="menuform">
+        <div class="layout-menu #{guestPreferences.menuClass}">
+            <div class="nano">
+                <div class="nano-content menu-scroll-content">
+                    <ui:fragment
+                            rendered="#{guestPreferences.profileMode == 'inline' and guestPreferences.menuLayout != 'menu-layout-static menu-layout-horizontal'}">
+                        <div class="profile">
+                            <div class="profile-image"></div>
+                            <a id="profile-options" href="#">
+                                <span class="profile-name">#{sessionInformationAndRoutesBean.userLogged.usuarioLogado.pessoa.nome.trim()}</span>
+                                <i class="material-icons">&#xE313;</i>
+                            </a>
+                        </div>
+
+                        <ul id="profile-menu" class="ultima-menu">
+                            <li role="menuitem">
+                                <a href="/logout" class="ripplelink">
+                                    <i class="material-icons">power_settings_new</i>
+                                    <span>Sair</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </ui:fragment>
+
+                    <pu:menu widgetVar="me">
+                        <p:menuitem id="um_dashboard" value="Início" icon="home" ajax="false"/>
+                        <p:submenu id="sm_paciente" label="Paciente" icon="person">
+                            <p:menuitem id="um_busca_paciente" value="Buscar" icon="search"
+                                        action="#{sessionInformationAndRoutesBean.navigateToBuscaPaciente}"
+                                        ajax="false"/>
+                            <p:menuitem id="um_cadastro_paciente" value="Cadastrar" icon="add"
+                                        action="#{sessionInformationAndRoutesBean.navigateToCadastroPaciente}"
+                                        ajax="false"/>
+                        </p:submenu>
+
+                        <p:submenu id="sm_profissional" label="Profissional" icon="person">
+                            <p:menuitem id="um_busca_profissional" value="Buscar" icon="search"
+                                        action="#{sessionInformationAndRoutesBean.navigateToBuscaProfissional}"
+                                        ajax="false"/>
+                            <p:menuitem id="um_cadastro_profissional" value="Cadastrar" icon="add"
+                                        action="#{sessionInformationAndRoutesBean.navigateToCadastroProfissional}"
+                                        ajax="false"/>
+                        </p:submenu>
+                    </pu:menu>
+                </div>
+            </div>
+        </div>
+    </h:form>
+</ui:composition>

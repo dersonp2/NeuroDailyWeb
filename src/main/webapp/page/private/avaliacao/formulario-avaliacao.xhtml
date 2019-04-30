@@ -1,0 +1,107 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:util="http://xmlns.jcp.org/jsf/composite/components"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/template.xhtml">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form" prependId="false">
+            <util:message/>
+
+            <div class="ui-g-12">
+                <div class="card card-w-title">
+                    <h1><b>Avaliação</b></h1>
+                    <h:panelGroup>
+                        <p:fieldset legend="Dados do paciente" style="margin-bottom:20px">
+                            <p:panelGrid id="pgDadosPaciente"
+                                         columns="3"
+                                         columnClasses="ui-grid-col-5, ui-grid-col-5, ui-grid-col-2"
+                                         styleClass="ui-panelgrid-blank form-group"
+                                         style="border:0px none; background-color:transparent;">
+
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputText id="itNome"
+                                                 value="#{formularioAvaliacaoBean.paciente.pessoa.nome}"
+                                                 readonly="true"
+                                                 style="width: 100%;"/>
+                                    <p:outputLabel for="itNome" value="Nome"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputText id="itResponsavel"
+                                                 value="#{formularioAvaliacaoBean.paciente.responsavel.nome}"
+                                                 readonly="true"
+                                                 style="width: 100%;"/>
+                                    <p:outputLabel for="itResponsavel" value="Responsavel"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputText id="itIdade"
+                                                 value="#{formularioAvaliacaoBean.idade}"
+                                                 readonly="true"
+                                                 style="width: 100%;"/>
+                                    <p:outputLabel for="itIdade" value="Idade"/>
+                                </h:panelGroup>
+                            </p:panelGrid>
+                        </p:fieldset>
+
+                        <p:fieldset legend="Parecer" style="margin-bottom:20px">
+                            <p:panelGrid id="pgAvaliacao"
+                                         columns="1"
+                                         columnClasses="ui-grid-col-12"
+                                         styleClass="ui-panelgrid-blank form-group"
+                                         style="border:0px none; background-color:transparent;">
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputTextarea id="itDescricao"
+                                                     value="#{formularioAvaliacaoBean.avaliacao.descricao}"
+                                                     autoResize="true"
+                                                     maxlength="2000"
+                                                     cols="200"
+                                                     style="width: 100%;"/>
+                                    <p:outputLabel for="itDescricao" value="Descrição"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputTextarea id="itConsideracao"
+                                                     value="#{formularioAvaliacaoBean.avaliacao.consideracao}"
+                                                     autoResize="true"
+                                                     maxlength="1000"
+                                                     cols="200"
+                                                     style="width: 100%;"/>
+                                    <p:outputLabel for="itConsideracao" value="Considerações"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup>
+                                    <p:outputLabel for="rtAvaliacao" value="Avaliação do paciente"/>
+                                    <p:rating id="rtAvaliacao" value="#{formularioAvaliacaoBean.avaliacao.nota}"/>
+                                </h:panelGroup>
+                            </p:panelGrid>
+                        </p:fieldset>
+                    </h:panelGroup>
+                </div>
+
+                <div class="ui-g" style="margin-top: -13px;">
+                    <div class="ui-g-12">
+                        <p:toolbar>
+                            <f:facet name="right">
+                                <span class="ui-separator" style="padding-right: 5px;"/>
+                                <p:commandButton id="btnSalvar"
+                                                 value="Salvar"
+                                                 action="#{formularioAvaliacaoBean.save}"
+                                                 icon="ui-icon-check"
+                                                 styleClass="green-btn"
+                                                 process="@form"
+                                                 update="@form"/>
+                            </f:facet>
+                        </p:toolbar>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

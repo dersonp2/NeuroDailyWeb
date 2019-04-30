@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:util="http://xmlns.jcp.org/jsf/composite/components" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template/template.xhtml">
+
+    <ui:define name="head">
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form" prependId="false">
+            <!-- MESSAGES -->
+            <util:message/>
+            <!-- MESSAGES -->
+
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <div class="card card-w-title">
+
+                        <h1>Busca de profissionais</h1>
+
+                        <h:panelGroup>
+                            <p:panelGrid id="pgNome"
+                                         layout="grid"
+                                         columns="1"
+                                         styleClass="ui-panelgrid-blank form-group"
+                                         columnClasses="ui-grid-col-12">
+                                <h:panelGroup styleClass="md-inputfield">
+                                    <p:inputText value="#{buscaProfissionalBean.nome}" style="width: 100%;"/>
+                                    <h:outputLabel value="Nome"/>
+                                </h:panelGroup>
+                            </p:panelGrid>
+                            <p:spacer/>
+
+                            <p:toolbar>
+                                <f:facet name="right">
+                                    <p:commandButton value="Localizar"
+                                                     icon="ui-icon-search"
+                                                     actionListener="#{buscaProfissionalBean.find}"
+                                                     process="@this pgNome"
+                                                     update="pacienteTable"/>
+                                </f:facet>
+                            </p:toolbar>
+                        </h:panelGroup>
+                        <p:spacer/>
+
+                        <p:dataTable id="pacienteTable"
+                                     emptyMessage="Nenhum registro encontrado. Realize uma nova busca."
+                                     var="profissional"
+                                     value="#{buscaProfissionalBean.profissionais}"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     rows="10">
+                            <p:column headerText="CPF" width="15%" style="text-align: center">
+                                <h:outputText value="#{profissional.pessoa.documentoPessoal.cpf}"/>
+                            </p:column>
+                            <p:column headerText="Nome">
+                                <h:outputText value="#{profissional.pessoa.nome}"/>
+                            </p:column>
+                            <p:column headerText="Profissão">
+                                <h:outputText value="#{profissional.profissao.descricao}"/>
+                            </p:column>
+                            <p:column width="5%" style="text-align: center">
+                                <p:commandButton title="Editar"
+                                                 action="#{buscaProfissionalBean.navigateToCadastroProfissional}"
+                                                 icon="ui-icon-edit">
+                                    <f:setPropertyActionListener value="#{profissional.id}"
+                                                                 target="#{buscaProfissionalBean.profissionalId}"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

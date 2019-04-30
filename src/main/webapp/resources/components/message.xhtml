@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+<composite:interface name="message">
+</composite:interface>
+
+<composite:implementation>
+    <p:growl id="messages" showDetail="false" autoUpdate="true"
+             closable="true" showIcon="false" life="3000"/>
+</composite:implementation>
+</html>

@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: neurodaily
+
+  jmx:
+    default-domain: neurodaily
+    unique-names: true
+
+  datasource:
+    url: jdbc:postgresql://172.16.2.176:5432/Daily
+    username: postgres
+    password: $1!8@6141D@#9&L30F
+    driver-class-name: org.postgresql.Driver
+
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
